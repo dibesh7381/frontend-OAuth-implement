@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const BACKEND_URL = "http://localhost:5000";
+const BACKEND_URL = "https://backend-oauth-implement.onrender.com";
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);

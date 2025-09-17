@@ -1,6 +1,6 @@
 import React from "react";
 
-const BACKEND_URL = "http://localhost:5000";
+const BACKEND_URL = "https://backend-oauth-implement.onrender.com";
 
 const Home = () => {
   return (
