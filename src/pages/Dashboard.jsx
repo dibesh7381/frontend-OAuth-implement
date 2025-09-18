@@ -9,7 +9,7 @@ const Dashboard = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // ✅ Check token in URL (after redirect)
+    // ✅ Check token in URL after Google redirect
     const params = new URLSearchParams(location.search);
     const tokenFromUrl = params.get("token");
 
@@ -17,9 +17,10 @@ const Dashboard = () => {
       localStorage.setItem("token", tokenFromUrl);
       // Clean URL query params
       navigate("/dashboard", { replace: true });
+    } else {
+      // Agar URL me token nahi, to localStorage se try karo
+      fetchUser();
     }
-
-    fetchUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.search]);
 
@@ -34,12 +35,17 @@ const Dashboard = () => {
       const res = await fetch(`${BACKEND_URL}/auth/user`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (!res.ok) throw new Error("Not logged in");
+
+      if (res.status === 401) {
+        // Token invalid ya expired
+        handleLogout();
+        return;
+      }
 
       const data = await res.json();
       setUser(data.user);
     } catch (err) {
-      console.log("❌ Token expired or invalid:", err.message);
+      console.error("❌ Error fetching user:", err);
       handleLogout();
     }
   };
