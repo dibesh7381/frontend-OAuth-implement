@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 const Profile = () => {
   const { user, logout } = useAuth();
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate(); // hook for navigation
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
-    setLoading(true); // show loader
+    setLoading(true);
     await logout();
     setLoading(false);
     navigate("/"); // redirect to home after logout
@@ -28,7 +28,17 @@ const Profile = () => {
         referrerPolicy="no-referrer"
       />
       <h2 className="text-xl font-semibold">{user?.name}</h2>
-      <p className="text-gray-600 mb-6">{user?.email}</p>
+      <p className="text-gray-600 mb-2">{user?.email}</p>
+
+      {/* Role-based message */}
+      {user.role && (
+        <p className={`mb-6 text-sm font-medium ${
+          user.role === "seller" ? "text-red-500" : "text-blue-500"
+        }`}>
+          You are a {user.role}
+        </p>
+      )}
+
       <button
         onClick={handleLogout}
         className="px-6 py-3 bg-gray-800 text-white rounded hover:bg-gray-900 transition"
@@ -40,5 +50,4 @@ const Profile = () => {
 };
 
 export default Profile;
-
 
