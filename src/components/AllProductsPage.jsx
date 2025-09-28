@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react";
 import ModernLoader from "./ModernLoader";
 
-const BACKEND_URL = "http://localhost:5000"; // apna backend URL
+const BACKEND_URL = "http://localhost:5000";
 
 const AllProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
+  const [userRole, setUserRole] = useState("customer"); // default
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch(`${BACKEND_URL}/products`);
+        const res = await fetch(`${BACKEND_URL}/products`, {
+          credentials: "include", // cookies bhejne ke liye
+        });
         const data = await res.json();
+
         if (res.ok) {
-          setProducts(data.products);
+          setProducts(data.products || []);
+          setUserRole(data.userRole || "customer"); // backend se role
+          console.log("User Role:", data.userRole); // debug ke liye
         } else {
           setErrorMsg(data.message || "Failed to fetch products");
         }
@@ -77,12 +83,25 @@ const AllProductsPage = () => {
                 From: {product.shopName}
               </p>
 
-              {/* Buttons (UI only) */}
               <div className="mt-auto flex gap-2">
-                <button className="flex-1 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+                <button
+                  disabled={userRole === "seller"}
+                  className={`flex-1 py-2 rounded text-white transition ${
+                    userRole === "seller"
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-blue-600 hover:bg-blue-700"
+                  }`}
+                >
                   Buy Now
                 </button>
-                <button className="flex-1 bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">
+                <button
+                  disabled={userRole === "seller"}
+                  className={`flex-1 py-2 rounded text-white transition ${
+                    userRole === "seller"
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-green-600 hover:bg-green-700"
+                  }`}
+                >
                   Add to Cart
                 </button>
               </div>
