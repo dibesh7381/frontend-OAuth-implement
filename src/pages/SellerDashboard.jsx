@@ -8,6 +8,8 @@ import MobileCard from "../Cards/MobileCard";
 import MobileForm from "../forms/MobileForm";
 import HomeApplianceForm from "../forms/HomeApplianceForm";
 import HomeApplianceCard from "../Cards/HomeApplianceCard";
+import BeautyProductForm from "../forms/BeautyProductForm";
+import BeautyProductCard from "../Cards/BeautyProductCard";
 
 const BACKEND_URL = "http://localhost:5000";
 
@@ -63,10 +65,12 @@ const SellerDashboard = () => {
   const shopType = seller?.shopType?.toLowerCase() || "";
   const isMobileSeller = shopType.includes("mobile");
   const isHomeApplianceSeller = shopType.includes("home");
+  const isBeautySeller = shopType.includes("beauty");
 
   // Filter products based on shop type
-  const mobileProducts = products.filter(p => p.shopType?.toLowerCase().includes("mobile"));
-  const homeApplianceProducts = products.filter(p => p.shopType?.toLowerCase().includes("home"));
+  const mobileProducts = products.filter((p) => p.shopType?.toLowerCase().includes("mobile"));
+  const homeApplianceProducts = products.filter((p) => p.shopType?.toLowerCase().includes("home"));
+  const beautyProducts = products.filter((p) => p.shopType?.toLowerCase().includes("beauty"));
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen bg-gray-50 px-4 pt-24">
@@ -97,6 +101,11 @@ const SellerDashboard = () => {
           <HomeApplianceForm addProduct={(newProduct) => setProducts([newProduct, ...products])} />
         </div>
       )}
+      {isBeautySeller && (
+        <div className="w-full max-w-md mb-8">
+          <BeautyProductForm addProduct={(newProduct) => setProducts([newProduct, ...products])} />
+        </div>
+      )}
 
       {/* Products Grid */}
       <div className="w-full max-w-6xl mb-16">
@@ -110,6 +119,7 @@ const SellerDashboard = () => {
           <>
             {isMobileSeller && <MobileCard products={mobileProducts} setProducts={setProducts} />}
             {isHomeApplianceSeller && <HomeApplianceCard products={homeApplianceProducts} setProducts={setProducts} />}
+            {isBeautySeller && <BeautyProductCard products={beautyProducts} setProducts={setProducts} />}
           </>
         )}
       </div>

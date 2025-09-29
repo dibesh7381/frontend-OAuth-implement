@@ -67,8 +67,8 @@ const MobileCard = ({ products, setProducts }) => {
                 <input type="number" name="price" defaultValue={product.price} placeholder="Price" required className="border p-2 rounded" />
                 <input type="file" name="image" accept="image/*" className="border p-2 rounded" />
                 <div className="flex gap-2 mt-2">
-                  <button type="submit" className="flex-1 bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Save</button>
-                  <button type="button" onClick={() => setEditingId(null)} className="flex-1 bg-gray-400 text-white py-2 rounded hover:bg-gray-500 transition">Cancel</button>
+                  <button type="submit" className="flex-1 bg-green-600 text-white py-2 rounded hover:bg-green-700 cursor-pointer transition">Save</button>
+                  <button type="button" onClick={() => setEditingId(null)} className="flex-1 bg-gray-400 text-white cursor-pointer py-2 rounded hover:bg-gray-500 transition">Cancel</button>
                 </div>
               </form>
             ) : (
@@ -78,8 +78,8 @@ const MobileCard = ({ products, setProducts }) => {
                 <p className="text-gray-800 font-bold text-lg mb-1">₹{product.price}</p>
                 <p className="text-gray-500 text-sm mb-3">From: {product.shopName}</p>
                 <div className="mt-auto flex gap-2">
-                  <button onClick={() => setEditingId(product._id)} className="flex-1 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">Edit</button>
-                  <button onClick={() => handleDelete(product._id)} className="flex-1 bg-red-600 text-white py-2 rounded hover:bg-red-700 transition">Delete</button>
+                  <button onClick={() => setEditingId(product._id)} className="flex-1 cursor-pointer bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">Edit</button>
+                  <button onClick={() => handleDelete(product._id)} className="flex-1 cursor-pointer bg-red-600 text-white py-2 rounded hover:bg-red-700 transition">Delete</button>
                 </div>
               </>
             )}

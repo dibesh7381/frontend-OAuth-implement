@@ -44,13 +44,17 @@ const HomeApplianceCard = ({ products, setProducts }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {products.map((product) => (
-        <div key={product._id} className="bg-white rounded-xl shadow-md hover:shadow-xl transition flex flex-col overflow-hidden">
+        <div
+          key={product._id}
+          className="bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-xl transition flex flex-col overflow-hidden"
+        >
+          {/* Full-width Image */}
           {product.image && (
-            <div className="w-full p-4 flex justify-center items-center bg-gray-100">
+            <div className="w-full overflow-hidden">
               <img
                 src={product.image || "/placeholder.png"}
                 alt={product.brand || product.productType}
-                className="max-h-48 w-auto object-contain"
+                className="w-full h-64 sm:h-72 md:h-80 lg:h-96 object-cover"
               />
             </div>
           )}
@@ -72,8 +76,8 @@ const HomeApplianceCard = ({ products, setProducts }) => {
                 <input type="file" name="image" accept="image/*" className="border p-2 rounded" />
 
                 <div className="flex gap-2 mt-2">
-                  <button type="submit" className="flex-1 bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Save</button>
-                  <button type="button" onClick={() => setEditingId(null)} className="flex-1 bg-gray-400 text-white py-2 rounded hover:bg-gray-500 transition">Cancel</button>
+                  <button type="submit" className="flex-1 bg-green-600 text-white py-2 rounded hover:bg-green-700 cursor-pointer transition">Save</button>
+                  <button type="button" onClick={() => setEditingId(null)} className="flex-1 bg-gray-400 text-white cursor-pointer py-2 rounded hover:bg-gray-500 transition">Cancel</button>
                 </div>
               </form>
             ) : (
@@ -84,8 +88,8 @@ const HomeApplianceCard = ({ products, setProducts }) => {
                 <p className="text-gray-500 text-sm mb-3">From: {product.shopName}</p>
 
                 <div className="mt-auto flex gap-2">
-                  <button onClick={() => setEditingId(product._id)} className="flex-1 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">Edit</button>
-                  <button onClick={() => handleDelete(product._id)} className="flex-1 bg-red-600 text-white py-2 rounded hover:bg-red-700 transition">Delete</button>
+                  <button onClick={() => setEditingId(product._id)} className="flex-1 bg-blue-600 text-white py-2 rounded cursor-pointer hover:bg-blue-700 transition">Edit</button>
+                  <button onClick={() => handleDelete(product._id)} className="flex-1 bg-red-600 text-white py-2 rounded cursor-pointer hover:bg-red-700 transition">Delete</button>
                 </div>
               </>
             )}
@@ -97,4 +101,3 @@ const HomeApplianceCard = ({ products, setProducts }) => {
 };
 
 export default HomeApplianceCard;
-

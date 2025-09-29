@@ -2,10 +2,9 @@ import { useState, useRef } from "react";
 
 const BACKEND_URL = "http://localhost:5000";
 
-const HomeApplianceForm = ({ addProduct }) => {
+const BeautyProductForm = ({ addProduct }) => {
   const [formData, setFormData] = useState({
     brand: "",
-    model: "",
     productType: "",
     color: "",
     price: "",
@@ -34,7 +33,6 @@ const HomeApplianceForm = ({ addProduct }) => {
     try {
       const data = new FormData();
       data.append("brand", formData.brand);
-      data.append("model", formData.model);
       data.append("productType", formData.productType);
       data.append("color", formData.color);
       data.append("price", formData.price);
@@ -50,11 +48,10 @@ const HomeApplianceForm = ({ addProduct }) => {
 
       if (res.ok) {
         setSuccessMsg("Product added successfully!");
-        addProduct(result.product); // Add to parent state
+        addProduct(result.product);
 
         setFormData({
           brand: "",
-          model: "",
           productType: "",
           color: "",
           price: "",
@@ -74,24 +71,52 @@ const HomeApplianceForm = ({ addProduct }) => {
 
   return (
     <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-md mb-6">
-      <h2 className="text-xl font-bold mb-4">Add Home Appliance</h2>
+      <h2 className="text-xl font-bold mb-4">Add Beauty Product</h2>
 
       {successMsg && <p className="text-green-600 mb-2">{successMsg}</p>}
       {errorMsg && <p className="text-red-600 mb-2">{errorMsg}</p>}
 
-      <input type="text" name="brand" placeholder="Brand" value={formData.brand} onChange={handleChange} className="w-full mb-2 p-2 border rounded" required />
-      <input type="text" name="model" placeholder="Model" value={formData.model} onChange={handleChange} className="w-full mb-2 p-2 border rounded" required />
+      <input
+        type="text"
+        name="brand"
+        placeholder="Brand"
+        value={formData.brand}
+        onChange={handleChange}
+        className="w-full mb-2 p-2 border rounded"
+        required
+      />
 
-      <select name="productType" value={formData.productType} onChange={handleChange} className="w-full mb-2 p-2 border rounded" required>
-        <option value="">Select Category</option>
-        <option value="TV">TV</option>
-        <option value="AC">AC</option>
-        <option value="Fridge">Fridge</option>
-        <option value="Cooler">Cooler</option>
+      <select
+        name="productType"
+        value={formData.productType}
+        onChange={handleChange}
+        className="w-full mb-2 p-2 border rounded"
+        required
+      >
+        <option value="">Select Product Type</option>
+        <option value="Lipstick">Lipstick</option>
+        <option value="Foundation">Foundation</option>
+        <option value="Perfume">Perfume</option>
+        <option value="Skincare">Skincare</option>
       </select>
 
-      <input type="text" name="color" placeholder="Color" value={formData.color} onChange={handleChange} className="w-full mb-2 p-2 border rounded" required />
-      <input type="number" name="price" placeholder="Price" value={formData.price} onChange={handleChange} className="w-full mb-2 p-2 border rounded" required />
+      <input
+        type="text"
+        name="color"
+        placeholder="Color / Shade"
+        value={formData.color}
+        onChange={handleChange}
+        className="w-full mb-2 p-2 border rounded"
+      />
+      <input
+        type="number"
+        name="price"
+        placeholder="Price"
+        value={formData.price}
+        onChange={handleChange}
+        className="w-full mb-2 p-2 border rounded"
+        required
+      />
 
       {/* Modern file input */}
       <div className="mb-4">
@@ -109,17 +134,33 @@ const HomeApplianceForm = ({ addProduct }) => {
           className="w-full cursor-pointer py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700 transition flex items-center justify-center gap-2"
         >
           {formData.image ? formData.image.name : "Upload Image"}
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12v6m0 0l-3-3m3 3l3-3m-9-9h6a2 2 0 012 2v2H5V5a2 2 0 012-2z" />
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12v6m0 0l-3-3m3 3l3-3m-9-9h6a2 2 0 012 2v2H5V5a2 2 0 012-2z"
+            />
           </svg>
         </button>
       </div>
 
-      <button type="submit" className={`w-full py-2 rounded cursor-pointer text-white transition ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"}`} disabled={loading}>
-        {loading ? "Adding..." : "Add Appliance"}
+      <button
+        type="submit"
+        className={`w-full py-2 rounded cursor-pointer text-white transition ${
+          loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+        }`}
+        disabled={loading}
+      >
+        {loading ? "Adding..." : "Add Product"}
       </button>
     </form>
   );
 };
 
-export default HomeApplianceForm;
+export default BeautyProductForm;

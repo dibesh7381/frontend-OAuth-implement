@@ -27,7 +27,7 @@ const BecomeSeller = () => {
           <p className="mb-4">You are already registered as a seller.</p>
           <button
             onClick={() => navigate("/seller-dashboard")}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+            className="bg-blue-600 cursor-pointer text-white px-4 py-2 rounded hover:bg-blue-700 transition"
           >
             Go to Dashboard
           </button>
@@ -133,7 +133,7 @@ const BecomeSeller = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+          className="w-full bg-blue-600 cursor-pointer text-white py-2 rounded hover:bg-blue-700 transition"
         >
           {loading ? "Submitting..." : "Become a Seller"}
         </button>
