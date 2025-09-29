@@ -24,11 +24,6 @@ const SellerDashboard = () => {
   useEffect(() => {
     if (!user) return;
 
-    if (user.role?.toLowerCase() !== "seller") {
-      const timer = setTimeout(() => navigate("/"), 3000);
-      return () => clearTimeout(timer);
-    }
-
     const fetchData = async () => {
       try {
         const sellerRes = await fetch(`${BACKEND_URL}/seller/me`, { credentials: "include" });
@@ -47,16 +42,22 @@ const SellerDashboard = () => {
     };
 
     fetchData();
-  }, [user, navigate]);
+  }, [user]);
 
   if (!user || loading) return <ModernLoader />;
 
-  if (user.role?.toLowerCase() !== "seller") {
+  if (!seller) {
     return (
       <div className="flex items-center justify-center min-h-screen px-4">
-        <div className="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded max-w-md text-center">
-          <strong className="font-bold">Restricted!</strong>
-          <span className="block mt-2">You are not a seller. Redirecting to home...</span>
+        <div className="bg-yellow-100 border border-yellow-400 text-yellow-800 px-6 py-8 rounded-lg text-center max-w-md">
+          <h2 className="text-2xl font-bold mb-4">You need to be a seller!</h2>
+          <p className="mb-6">To add products, you must first become a seller.</p>
+          <button
+            onClick={() => navigate("/become-seller")}
+            className="bg-yellow-600 text-white py-3 px-6 rounded-xl hover:bg-yellow-700 transition cursor-pointer"
+          >
+            Become a Seller
+          </button>
         </div>
       </div>
     );

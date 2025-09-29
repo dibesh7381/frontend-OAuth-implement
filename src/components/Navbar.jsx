@@ -19,7 +19,7 @@ const Navbar = () => {
         <div className="flex justify-between h-16 items-center">
           <div className="flex-shrink-0">
             <Link to="/" className="text-2xl font-bold text-white">
-              MyApp
+              ShopCart
             </Link>
           </div>
 
